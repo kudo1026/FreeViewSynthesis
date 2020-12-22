@@ -47,6 +47,7 @@ def run(dense_dir, scale, dm_write_vis=True):
     im_paths = []
     im_paths += sorted((dense_dir / "images").glob("*.png"))
     im_paths += sorted((dense_dir / "images").glob("*.jpg"))
+    im_paths += sorted((dense_dir / "images").glob("*.JPG"))
     im_paths += sorted((dense_dir / "images").glob("*.jpeg"))
     print(f"found {len(im_paths)} images")
 
