@@ -70,8 +70,11 @@ class Worker(co.mytorch.Worker):
     ):
         logging.info(f"  create dataset for {name}")
         im_paths = sorted(ibr_dir.glob(f"im_*.png"))
+        im_paths = sorted(ibr_dir.glob(f"im_*.PNG"))
         im_paths += sorted(ibr_dir.glob(f"im_*.jpg"))
+        im_paths += sorted(ibr_dir.glob(f"im_*.JPG"))
         im_paths += sorted(ibr_dir.glob(f"im_*.jpeg"))
+        im_paths += sorted(ibr_dir.glob(f"im_*.JPEG"))
         dm_paths = sorted(ibr_dir.glob("dm_*.npy"))
         count_paths = sorted(ibr_dir.glob("count_*.npy"))
         counts = []
@@ -132,16 +135,22 @@ class Worker(co.mytorch.Worker):
         logging.info(f"  create dataset for {name}")
 
         src_im_paths = sorted(src_ibr_dir.glob(f"im_*.png"))
+        src_im_paths = sorted(src_ibr_dir.glob(f"im_*.PNG"))
         src_im_paths += sorted(src_ibr_dir.glob(f"im_*.jpg"))
+        src_im_paths += sorted(src_ibr_dir.glob(f"im_*.JPG"))
         src_im_paths += sorted(src_ibr_dir.glob(f"im_*.jpeg"))
+        src_im_paths += sorted(src_ibr_dir.glob(f"im_*.JPEG"))
         src_dm_paths = sorted(src_ibr_dir.glob("dm_*.npy"))
         src_Ks = np.load(src_ibr_dir / "Ks.npy")
         src_Rs = np.load(src_ibr_dir / "Rs.npy")
         src_ts = np.load(src_ibr_dir / "ts.npy")
 
         tgt_im_paths = sorted(tgt_ibr_dir.glob(f"im_*.png"))
+        tgt_im_paths = sorted(tgt_ibr_dir.glob(f"im_*.PNG"))
         tgt_im_paths += sorted(tgt_ibr_dir.glob(f"im_*.jpg"))
+        tgt_im_paths += sorted(tgt_ibr_dir.glob(f"im_*.JPG"))
         tgt_im_paths += sorted(tgt_ibr_dir.glob(f"im_*.jpeg"))
+        tgt_im_paths += sorted(tgt_ibr_dir.glob(f"im_*.JPEG"))
         if len(tgt_im_paths) == 0:
             tgt_im_paths = None
         tgt_dm_paths = sorted(tgt_ibr_dir.glob("dm_*.npy"))
