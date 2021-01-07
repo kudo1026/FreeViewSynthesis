@@ -16,31 +16,51 @@ lpips_root = None
 
 
 tat_train_sets = [
-    "training/Barn",
-    "training/Caterpillar",
-    "training/Church",
-    "training/Courthouse",
-    "training/Ignatius",
-    "training/Meetingroom",
-    "intermediate/Family",
-    "intermediate/Francis",
-    "intermediate/Horse",
-    "intermediate/Lighthouse",
-    "intermediate/Panther",
-    "advanced/Auditorium",
-    "advanced/Ballroom",
-    "advanced/Museum",
-    "advanced/Temple",
-    "advanced/Courtroom",
-    "advanced/Palace",
+    "ibr3d_tat/training/Barn",
+    "ibr3d_tat/training/Caterpillar",
+    "ibr3d_tat/training/Church",
+    "ibr3d_tat/training/Courthouse",
+    "ibr3d_tat/training/Ignatius",
+    "ibr3d_tat/training/Meetingroom",
+    "ibr3d_tat/intermediate/Family",
+    "ibr3d_tat/intermediate/Francis",
+    "ibr3d_tat/intermediate/Horse",
+    "ibr3d_tat/intermediate/Lighthouse",
+    "ibr3d_tat/intermediate/Panther",
+    "ibr3d_tat/advanced/Auditorium",
+    "ibr3d_tat/advanced/Ballroom",
+    "ibr3d_tat/advanced/Museum",
+    "ibr3d_tat/advanced/Temple",
+    "ibr3d_tat/advanced/Courtroom",
+    "ibr3d_tat/advanced/Palace",
+    "ibr3d_tat/training/Truck",
+    "ibr3d_tat/intermediate/M60",
+    "ibr3d_tat/intermediate/Playground",
+    "ibr3d_tat/intermediate/Train",
+    "hall_datasets/gerrard_hall",
+    "hall_datasets/graham_hall_exterior",
+    "hall_datasets/graham_hall_interior",
+    "hall_datasets/person_hall"
 ]
 
 tat_eval_sets = [
-    "training/Truck",
-    "intermediate/M60",
-    "intermediate/Playground",
-    "intermediate/Train",
+    "hall_datasets/south_building"
 ]
+
+# tat_eval_sets = [
+#     "training/Truck",
+#     "intermediate/M60",
+#     "intermediate/Playground",
+#     "intermediate/Train",
+# ]
+
+# tat_train_sets = [
+#     "gerrard_hall",
+#     "graham_hall_exterior",
+#     "graham_hall_interior",
+#     "person_hall"
+# ]
+
 
 # fmt: off
 tat_eval_tracks = {}
@@ -59,5 +79,13 @@ dtu_source_ind = [idx for idx in range(49) if idx not in dtu_interpolation_ind +
 
 lpips_root = None
 
+# waypoint dataset evaluation
+# the parents of these paths must contain proper tat-style dataset
+waypoint_eval_sets = [
+    "hall_datasets/south_building/dense/ibr3d_test"
+]
+
+
 # TODO: adjust path
-tat_root = Path("/path/to/colmap_tat/")
+# tat_root = Path("/path/to/colmap_tat/")
+tat_root = Path("/home/kudo/external_disk/FVS_data")

@@ -211,25 +211,44 @@ class Worker(co.mytorch.Worker):
         return dsets
 
     def get_eval_set_tat(self, dset, mode):
-        dense_dir = config.tat_root / dset / "dense"
-        ibr_dir = dense_dir / f"ibr3d_pw_{self.eval_scale:.2f}"
-        if mode == "all":
-            tgt_ind = None
-        elif mode == "subseq":
-            tgt_ind = config.tat_eval_tracks[dset]
+
+        if mode in ["all", "subseq"]:
+            dense_dir = config.tat_root / dset / "dense"
+            ibr_dir = dense_dir / f"ibr3d_pw_{self.eval_scale:.2f}"
+            if mode == "all":
+                tgt_ind = None
+            elif mode == "subseq":
+                tgt_ind = config.tat_eval_tracks[dset]
+
+            dset = self.get_pw_dataset(
+                name=f'tat_{mode}_{dset.replace("/", "_")}',
+                ibr_dir=ibr_dir,
+                im_size=None,
+                pad_width=16,
+                patch=None,
+                n_nbs=self.eval_n_nbs,
+                nbs_mode="argmax",
+                tgt_ind=tgt_ind,
+                train=False,
+            )
+
+        elif mode in ["waypoint"]:
+            tgt_ibr_dir = config.tat_root / dset
+            src_ibr_dir = tgt_ibr_dir.parent / f"ibr3d_pw_{self.eval_scale:.2f}"
+            dset = self.get_track_dataset(
+                name=f'tat_{mode}_{dset.replace("/", "_")}',
+                src_ibr_dir=src_ibr_dir,
+                tgt_ibr_dir=tgt_ibr_dir,
+                im_size=None,
+                pad_width=16,
+                patch=None,
+                n_nbs=self.eval_n_nbs,
+                nbs_mode="argmax",
+                train=False,
+            )
         else:
             raise Exception("invalid mode for get_eval_set_tat")
-        dset = self.get_pw_dataset(
-            name=f'tat_{mode}_{dset.replace("/", "_")}',
-            ibr_dir=ibr_dir,
-            im_size=None,
-            pad_width=16,
-            patch=None,
-            n_nbs=self.eval_n_nbs,
-            nbs_mode="argmax",
-            tgt_ind=tgt_ind,
-            train=False,
-        )
+
         return dset
 
     def get_eval_sets(self):
@@ -247,6 +266,10 @@ class Worker(co.mytorch.Worker):
         if "tat-subseq" in self.eval_dsets:
             for dset in config.tat_eval_sets:
                 dset = self.get_eval_set_tat(dset, "subseq")
+                eval_sets.append(dset)
+        if "waypoint" in self.eval_dsets:
+            for dset in config.waypoint_eval_sets:
+                dset = self.get_eval_set_tat(dset, "waypoint")
                 eval_sets.append(dset)
         for dset in eval_sets:
             dset.logging_rate = 1
