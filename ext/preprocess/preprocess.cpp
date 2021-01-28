@@ -230,7 +230,7 @@ py::array_t<int> count_nbs_per_pix(array_f32_d tgt_dm_np, array_f32_d tgt_K_np,
                 if (is_valid_projection(src_h, src_w, proj_d, src_dms[vidx],
                                         height, width, bwd_depth_thresh,
                                         false)) {
-                    count[tgt_h*width+tgt_w]++;
+                    ++count[tgt_h * width + tgt_w];
                 }
             }
         }
